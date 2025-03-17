@@ -40,7 +40,6 @@ void load_words(set<string>& word_list, const string& file_name)
     {
         cerr << "Error opening dictionary file: " << file_name << endl;
     }
-    
     string word;
     while (file >> word)
     {
@@ -51,18 +50,15 @@ void load_words(set<string>& word_list, const string& file_name)
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
 {
     if (begin_word == end_word) return { begin_word };
-
     queue<vector<string>> ladder_queue;
     set<string> visited;
     ladder_queue.push({ begin_word });
     visited.insert(begin_word);
-
     while (!ladder_queue.empty())
     {
         vector<string> ladder = ladder_queue.front();
         ladder_queue.pop();
         string last_word = ladder.back();
-
         for (const string& word : word_list) {
             if (is_adjacent(last_word, word) && visited.find(word) == visited.end()) {
                 visited.insert(word);
@@ -74,19 +70,25 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
             }
         }
     }
-
     return {};
 }
 
-void print_word_ladder(const vector<string>& ladder) {
-    if (ladder.empty()) {
+void print_word_ladder(const vector<string>& ladder)
+{
+    if (ladder.empty())
+    {
         cout << "No word ladder found." << endl;
         return;
     }
     cout << "Word ladder found: ";
-    for (size_t i = 0; i < ladder.size(); ++i) {
+    for (size_t i = 0; i < ladder.size(); ++i)
+    {
         cout << ladder[i];
-        if (i < ladder.size() - 1) cout << " ";
-    }
-    cout << endl;
+        if (i != ladder.size() - 1)
+        {
+            cout << " ";
+        }
+    } 
+    cout << "\n";
 }
+
